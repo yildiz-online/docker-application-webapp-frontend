@@ -1,0 +1,17 @@
+
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t moussavdb/application-webapp-frontend:latest -t moussavdb/application-webapp-frontend:build_$TRAVIS_BUILD_NUMBER .
+script:
+  - docker images moussavdb/application-webapp-frontend
+  
+after_success:
+  - docker login -u="moussavdb" -p="$DOCKER_PASSWORD";
+    docker push moussavdb/application-webapp-frontend:latest;
+    docker push moussavdb/application-webapp-frontend:build_$TRAVIS_BUILD_NUMBER;
