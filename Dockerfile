@@ -10,6 +10,6 @@ COPY --from=clone /app/webapp-frontend /app
 RUN yarn install
 RUN ng build --prod
 
-FROM nginx
+FROM nginx:alpine
 MAINTAINER Grégory Van den Borre <vandenborre.gregory@hotmail.fr>
 COPY --from=build /app/dist /usr/share/nginx/html
